@@ -56,7 +56,9 @@ local EMOTES = {
     { name = "Ga Brutal(SS)", id = "rbxassetid://14548619594" },
 	{ name = "entot aku mas", id = "rbxassetid://100179668392253" },
 	{ name = "UWAHHH", id = "rbxassetid://74138045051004" },
-	{ name = "GEOL AW AW", id = "rbxassetid://134605189785347" },
+	{ name = "PINGGUL SANTAI WOK", id = "rbxassetid://134605189785347" },
+    { name = "PINGGUL AW AW", id = "rbxassetid://74307872045715" },
+    {name = "penggoda", id = "rbxassetid://133486714037697" },
     { name = "Stop Emote", id = nil },
 }
 
