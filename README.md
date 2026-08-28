@@ -9,7 +9,6 @@
 ![Lua](https://img.shields.io/badge/Language-Lua-5C2D91)
 ![Status](https://img.shields.io/badge/Status-Active-00C853)
 ![UI](https://img.shields.io/badge/UI-Premium%20HUD-121826)
-![Author](https://img.shields.io/badge/Author-_-kinginul-FF6B6B)
 
 KRT adalah toolkit Roblox yang dibuat untuk memberikan pengalaman bermain yang lebih nyaman, lebih rapi, dan lebih fleksibel. Script ini dirancang dengan antarmuka premium, fitur utility yang stabil, serta beberapa troll prank yang bisa menambah keseruan saat digunakan.
 
@@ -34,7 +33,7 @@ KRT adalah toolkit Roblox yang dibuat untuk memberikan pengalaman bermain yang l
 ### Copy script siap pakai
 
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinginul/emotemotawaw/main/budi.lua"))()
+loadstring(game:HttpGet("https://github.com/Kinginul/KRT/blob/main/memek.lua"))()
 ```
 
 ### Langkah cepat
