@@ -58,7 +58,14 @@ local EMOTES = {
 	{ name = "UWAHHH", id = "rbxassetid://74138045051004" },
 	{ name = "PINGGUL SANTAI WOK", id = "rbxassetid://134605189785347" },
     { name = "PINGGUL AW AW", id = "rbxassetid://74307872045715" },
-    {name = "penggoda", id = "rbxassetid://133486714037697" },
+    { name = "penggoda", id = "rbxassetid://133486714037697" },
+    { name = "animeh", id = "rbxassetid://106516971471692" },
+    { name = "goyang brutal", id = "rbxassetid://77016863682150" },
+    { name = "Bergetar dia", id = "rbxassetid://105930925220838" },
+    { name = "sana sini goyang", id = "rbxassetid://77387643699357" },
+    { name = "ndut ndut", id = "rbxassetid://76554449514090" },
+    { name = "goyang manis aw", id = "rbxassetid://104511578507004" },
+    { name = "ulek ulek aw", id = "rbxassetid://102998462448180" },
     { name = "Stop Emote", id = nil },
 }
 
@@ -214,7 +221,7 @@ local function createUI()
     title.Size = UDim2.new(1, 0, 0, 30)
     title.BackgroundColor3 = Color3.fromRGB(40, 40, 60)
     title.TextColor3 = Color3.fromRGB(255, 255, 255)
-    title.Text = "  Sprint & Emote Menu"
+    title.Text = "KRT (Kinginul Roblox Tools)"
     title.Font = Enum.Font.GothamBold
     title.TextSize = 16
     title.TextXAlignment = Enum.TextXAlignment.Left
