@@ -72,22 +72,23 @@ local ANIM_PROFILES = {
 
 -- ======================== EMOTE DATA ========================
 local EMOTES = {
-    { name = "Wave", id = "rbxassetid://138316142522795" },
-    { name = "Cheer", id = "rbxassetid://134207822469183" },
-    { name = "Dance 1", id = "rbxassetid://14548619594" },
-    { name = "Dance 2", id = "rbxassetid://100179668392253" },
-    { name = "Spin", id = "rbxassetid://74138045051004" },
-    { name = "Boost", id = "rbxassetid://134605189785347" },
-    { name = "Power", id = "rbxassetid://74307872045715" },
-    { name = "Show", id = "rbxassetid://133486714037697" },
-    { name = "Style", id = "rbxassetid://106516971471692" },
-    { name = "Groove", id = "rbxassetid://77016863682150" },
-    { name = "Vibe", id = "rbxassetid://105930925220838" },
-    { name = "Move", id = "rbxassetid://77387643699357" },
-    { name = "Chill", id = "rbxassetid://76554449514090" },
-    { name = "Ready", id = "rbxassetid://104511578507004" },
-    { name = "Loop", id = "rbxassetid://102998462448180" },
-    { name = "Stop", id = nil },
+    { name = "Geol Geol", id = "rbxassetid://138316142522795" },
+    { name = "Ange", id = "rbxassetid://134207822469183" },
+    { name = "Ga Brutal", id = "rbxassetid://14548619594" },
+	{ name = "entot aku mas", id = "rbxassetid://100179668392253" },
+	{ name = "UWAHHH", id = "rbxassetid://74138045051004" },
+	{ name = "PINGGUL SANTAI WOK", id = "rbxassetid://134605189785347" },
+    { name = "PINGGUL AW AW", id = "rbxassetid://74307872045715" },
+    { name = "penggoda", id = "rbxassetid://133486714037697" },
+    { name = "animeh", id = "rbxassetid://106516971471692" },
+    { name = "goyang brutal", id = "rbxassetid://77016863682150" },
+    { name = "Bergetar dia", id = "rbxassetid://105930925220838" },
+    { name = "sana sini goyang", id = "rbxassetid://77387643699357" },
+    { name = "ndut ndut", id = "rbxassetid://76554449514090" },
+    { name = "goyang manis aw", id = "rbxassetid://104511578507004" },
+    { name = "ulek ulek aw", id = "rbxassetid://102998462448180" },
+    { name = "Stop Emote", id = nil },
+}
 }
 
 -- ======================== UTILITY FUNCTIONS ========================
