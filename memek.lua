@@ -35,6 +35,7 @@ local uiVisible = true
 local mainFrame = nil
 local playerPanelVisible = false
 local playerListRef = nil
+local playerPanelTabRef = nil
 local mobileUI = UserInput.TouchEnabled
 local trollState = {
     enabled = false,
@@ -591,27 +592,21 @@ end
 
 local function togglePlayerPanel()
     playerPanelVisible = not playerPanelVisible
-    local playerPanel = mainFrame and mainFrame:FindFirstChild("PlayerPanel")
+    local playerPanel = playerPanelTabRef
     if not playerPanel then
         return
     end
 
     if playerPanelVisible then
         playerPanel.Visible = true
-        playerPanel.Size = UDim2.new(1, 0, 0, 0)
-        TweenService:Create(playerPanel, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-            Size = UDim2.new(1, 0, 0, 180),
-        }):Play()
+        local mainPanel = mainFrame and mainFrame:FindFirstChild("MainPanel")
+        local visualPanel = mainFrame and mainFrame:FindFirstChild("VisualPanel")
+        local settingsPanel = mainFrame and mainFrame:FindFirstChild("SettingsPanel")
+        if mainPanel then mainPanel.Visible = false end
+        if visualPanel then visualPanel.Visible = false end
+        if settingsPanel then settingsPanel.Visible = false end
     else
-        local tween = TweenService:Create(playerPanel, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-            Size = UDim2.new(1, 0, 0, 0),
-        })
-        tween:Play()
-        tween.Completed:Connect(function()
-            if not playerPanelVisible then
-                playerPanel.Visible = false
-            end
-        end)
+        playerPanel.Visible = false
     end
 end
 
@@ -1012,6 +1007,11 @@ local function createUI()
     tabLayout.Parent = tabBar
 
     local tabButtons = {}
+    local mainPanel
+    local visualPanel
+    local playerPanelTab
+    local settingsPanel
+
     local function createTabButton(label, index)
         local btn = Instance.new("TextButton")
         btn.Size = UDim2.new(0.25, -5, 1, -8)
@@ -1049,14 +1049,14 @@ local function createUI()
         return btn
     end
 
-    local mainPanel = Instance.new("Frame")
+    mainPanel = Instance.new("Frame")
     mainPanel.Name = "MainPanel"
     mainPanel.Size = UDim2.new(1, -20, 1, -95)
     mainPanel.Position = UDim2.new(0, 10, 0, 88)
     mainPanel.BackgroundTransparency = 1
     mainPanel.Parent = mainFrame
 
-    local visualPanel = Instance.new("Frame")
+    visualPanel = Instance.new("Frame")
     visualPanel.Name = "VisualPanel"
     visualPanel.Size = UDim2.new(1, -20, 1, -95)
     visualPanel.Position = UDim2.new(0, 10, 0, 88)
@@ -1064,7 +1064,8 @@ local function createUI()
     visualPanel.Visible = false
     visualPanel.Parent = mainFrame
 
-    local playerPanelTab = Instance.new("Frame")
+    playerPanelTab = Instance.new("Frame")
+    playerPanelTabRef = playerPanelTab
     playerPanelTab.Name = "PlayerPanelTab"
     playerPanelTab.Size = UDim2.new(1, -20, 1, -95)
     playerPanelTab.Position = UDim2.new(0, 10, 0, 88)
@@ -1072,7 +1073,7 @@ local function createUI()
     playerPanelTab.Visible = false
     playerPanelTab.Parent = mainFrame
 
-    local settingsPanel = Instance.new("Frame")
+    settingsPanel = Instance.new("Frame")
     settingsPanel.Name = "SettingsPanel"
     settingsPanel.Size = UDim2.new(1, -20, 1, -95)
     settingsPanel.Position = UDim2.new(0, 10, 0, 88)
@@ -1342,9 +1343,9 @@ local function createUI()
     settingInfo.LayoutOrder = 1
     settingInfo.Parent = settingsContent
 
-    local layoutModeBtn = createStyledButton("Layout: Desktop", 2, settingsContent, function()
+    local layoutModeBtn, layoutModeLabel = createStyledButton("Layout: Desktop", 2, settingsContent, function()
         mobileUI = not mobileUI
-        layoutModeBtn.TextLabel.Text = mobileUI and "Layout: Mobile" or "Layout: Desktop"
+        layoutModeLabel.Text = mobileUI and "Layout: Mobile" or "Layout: Desktop"
         updateDesktopLayout()
         showToast(mobileUI and "Mobile layout enabled" or "Desktop layout enabled")
     end, "L")
@@ -1377,6 +1378,98 @@ local function createUI()
     settingHint.TextXAlignment = Enum.TextXAlignment.Left
     settingHint.LayoutOrder = 6
     settingHint.Parent = settingsContent
+
+    local function createDeviceSelector()
+        mainFrame.Visible = false
+
+        local selector = Instance.new("Frame")
+        selector.Name = "DeviceSelector"
+        selector.Size = UDim2.new(1, 0, 1, 0)
+        selector.BackgroundColor3 = Color3.fromRGB(10, 12, 16)
+        selector.BackgroundTransparency = 0.08
+        selector.BorderSizePixel = 0
+        selector.ZIndex = 20
+        selector.Parent = screenGui
+
+        local card = Instance.new("Frame")
+        card.Size = UDim2.new(0, 330, 0, 214)
+        card.Position = UDim2.new(0.5, -165, 0.5, -107)
+        card.BackgroundColor3 = Color3.fromRGB(26, 29, 35)
+        card.BorderSizePixel = 0
+        card.ZIndex = 21
+        card.Parent = selector
+
+        local cardCorner = Instance.new("UICorner")
+        cardCorner.CornerRadius = UDim.new(0, 14)
+        cardCorner.Parent = card
+
+        local cardStroke = Instance.new("UIStroke")
+        cardStroke.Color = Color3.fromRGB(104, 112, 126)
+        cardStroke.Transparency = 0.2
+        cardStroke.Parent = card
+
+        local heading = Instance.new("TextLabel")
+        heading.Size = UDim2.new(1, -32, 0, 28)
+        heading.Position = UDim2.new(0, 16, 0, 18)
+        heading.BackgroundTransparency = 1
+        heading.Text = "Choose your device"
+        heading.TextColor3 = Color3.fromRGB(240, 243, 248)
+        heading.Font = Enum.Font.GothamBold
+        heading.TextSize = 16
+        heading.TextXAlignment = Enum.TextXAlignment.Left
+        heading.ZIndex = 22
+        heading.Parent = card
+
+        local description = Instance.new("TextLabel")
+        description.Size = UDim2.new(1, -32, 0, 38)
+        description.Position = UDim2.new(0, 16, 0, 51)
+        description.BackgroundTransparency = 1
+        description.Text = "Select a layout before opening KRT."
+        description.TextColor3 = Color3.fromRGB(171, 178, 190)
+        description.Font = Enum.Font.Gotham
+        description.TextSize = 12
+        description.TextXAlignment = Enum.TextXAlignment.Left
+        description.ZIndex = 22
+        description.Parent = card
+
+        local function createDeviceButton(text, position, isMobile)
+            local button = Instance.new("TextButton")
+            button.Size = UDim2.new(0, 140, 0, 64)
+            button.Position = position
+            button.BackgroundColor3 = Color3.fromRGB(45, 50, 60)
+            button.BorderSizePixel = 0
+            button.Text = text
+            button.TextColor3 = Color3.fromRGB(238, 241, 246)
+            button.Font = Enum.Font.GothamSemibold
+            button.TextSize = 13
+            button.AutoButtonColor = false
+            button.ZIndex = 22
+            button.Parent = card
+
+            local buttonCorner = Instance.new("UICorner")
+            buttonCorner.CornerRadius = UDim.new(0, 9)
+            buttonCorner.Parent = button
+
+            button.MouseEnter:Connect(function()
+                button.BackgroundColor3 = Color3.fromRGB(67, 75, 88)
+            end)
+
+            button.MouseLeave:Connect(function()
+                button.BackgroundColor3 = Color3.fromRGB(45, 50, 60)
+            end)
+
+            button.MouseButton1Click:Connect(function()
+                mobileUI = isMobile
+                layoutModeLabel.Text = mobileUI and "Layout: Mobile" or "Layout: Desktop"
+                updateDesktopLayout()
+                mainFrame.Visible = true
+                selector:Destroy()
+            end)
+        end
+
+        createDeviceButton("HP / Mobile", UDim2.new(0, 16, 0, 112), true)
+        createDeviceButton("PC / Desktop", UDim2.new(1, -156, 0, 112), false)
+    end
 
     local toggleBtn = Instance.new("TextButton")
     toggleBtn.Name = "KRTToggle"
@@ -1438,6 +1531,7 @@ local function createUI()
 
     updateFlyButton()
     updateDesktopLayout()
+    createDeviceSelector()
 end
 
 local function toggleUI()
